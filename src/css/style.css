@@ -1,0 +1,17 @@
+body{
+    min-height: 100vh;
+    background-color: #15212d;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#container{
+    width: 50%;
+    background-color: #ffffff;
+    margin: 40px 0;
+    padding: 30px;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
