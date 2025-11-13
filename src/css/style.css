@@ -2,6 +2,7 @@ body{
     min-height: 100vh;
     background-color: #15212d;
     margin: 0;
+    font-family: 'Poppins', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
