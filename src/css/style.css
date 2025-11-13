@@ -113,21 +113,3 @@ body{
     box-sizing: border-box;
     border: 1px solid #e3e0e0;
 }
-
-@keyframes tiltTest {
-  0% {
-    transform: translateX(-50%) rotate(0deg);
-  }
-  25% {
-    transform: translateX(-50%) rotate(-10deg);
-  }
-  50% {
-    transform: translateX(-50%) rotate(0deg);
-  }
-  75% {
-    transform: translateX(-50%) rotate(10deg);
-  }
-  100% {
-    transform: translateX(-50%) rotate(0deg);
-  }
-}
