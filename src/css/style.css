@@ -58,6 +58,18 @@ body{
     position: relative;
 }
 
+#seesaw-plank{
+    width: 400px;
+    height: 10px;
+    border-radius: 30px;
+    background-color: #e7b16c;
+    
+    position: absolute;
+    left: 50%;
+    top: calc(50% - 30px);
+    transform: translateX(-50%);
+}
+
 #seesaw-pivot{
     width: 0;
     height: 0;
