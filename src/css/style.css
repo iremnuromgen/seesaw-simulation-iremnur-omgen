@@ -55,6 +55,20 @@ body{
     margin: 30px 0;
     border-radius: 10px;
     background-color: #e3e0e0;
+    position: relative;
+}
+
+#seesaw-pivot{
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 40px solid #15212d;
 }
 
 #buttons{
@@ -86,4 +100,22 @@ body{
     padding: 10px;
     box-sizing: border-box;
     border: 1px solid #e3e0e0;
+}
+
+@keyframes tiltTest {
+  0% {
+    transform: translateX(-50%) rotate(0deg);
+  }
+  25% {
+    transform: translateX(-50%) rotate(-10deg);
+  }
+  50% {
+    transform: translateX(-50%) rotate(0deg);
+  }
+  75% {
+    transform: translateX(-50%) rotate(10deg);
+  }
+  100% {
+    transform: translateX(-50%) rotate(0deg);
+  }
 }
