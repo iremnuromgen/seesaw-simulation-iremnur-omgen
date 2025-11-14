@@ -58,7 +58,6 @@ export function updatePreviewWeightObjectPosition(seesawPlank, mouseX) {
     
     if(clickX >= 0 && clickX <= seesawPlankRect.width) {
         previewBox.style.left = `${left}px`;
-        previewBox.style.display = "block";
     }
     else {
         previewBox.style.display = "none";
