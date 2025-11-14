@@ -49,7 +49,7 @@ body{
     letter-spacing: 0.5px;
 }
 
-.next-box-weight-value{
+.info-box p{
     font-size: clamp(8px, 1.5vw, 13px);
     color: #4b4949;
     font-weight: bold;
