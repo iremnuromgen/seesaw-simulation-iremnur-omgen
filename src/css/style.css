@@ -75,6 +75,8 @@ body{
     left: 50%;
     top: calc(50% - 30px);
     transform: translateX(-50%);
+    transform-origin: center center 0;
+    transition: transform 0.5s ease-out;
 }
 
 #seesaw-pivot{
