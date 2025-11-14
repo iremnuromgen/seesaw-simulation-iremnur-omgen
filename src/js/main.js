@@ -20,6 +20,16 @@ const tiltAngleValue = document.querySelector('.tilt-angle-value');
 let nextBoxWeight = getRandomWeight();
 nextBoxWeightValue.textContent = `${nextBoxWeight} kg`;
 
+function addLogEntry(entry) {
+    const eventLogContainer = document.getElementById("event-log-container");
+
+    const logEntry = document.createElement("div");
+    logEntry.classList.add("log-entry");
+    logEntry.textContent = entry;
+
+    eventLogContainer.prepend(logEntry);
+}
+
 seesawPlank.addEventListener("mouseenter", (event) => {
     const seesawPlankRect = seesawPlank.getBoundingClientRect();
     const clickX = event.clientX - seesawPlankRect.left;
@@ -57,6 +67,15 @@ seesawPlank.addEventListener('click', (event) => {
         seesawPlank.style.transform = `translateX(-50%) rotate(${tiltAngle}deg)`;
 
         tiltAngleValue.textContent = `${tiltAngle.toFixed(1)}°`
+
+        const side = distanceFromCenter < 0 ? "left" : "right";
+        const absDistance = Math.abs(distanceFromCenter).toFixed(1);
+        const angleImpact = (nextBoxWeight * distanceFromCenter / 100).toFixed(1);
+
+        const entry = `A ${nextBoxWeight} kg box was placed ${absDistance}px to the ${side} of the center, affecting the seesaw tilt by ${angleImpact}°.`;
+
+        addLogEntry(entry);
+        
         nextBoxWeight = getRandomWeight();
         nextBoxWeightValue.textContent = `${nextBoxWeight} kg`;
 
