@@ -33,6 +33,12 @@ export function createWeightObject(plank, clickX, boxWeight, isPreview = false) 
     box.style.left = `${left}px`;
     box.style.borderRadius = "4px";
 
+    const boxWeightLabel = document.createElement("span");
+    boxWeightLabel.textContent = `${boxWeight} kg`;
+    boxWeightLabel.classList.add("weight-label");
+    if(isPreview) boxWeightLabel.classList.add("preview-label");
+    box.appendChild(boxWeightLabel);
+
     if(isPreview) {
         previewBox = box;
     } else {
