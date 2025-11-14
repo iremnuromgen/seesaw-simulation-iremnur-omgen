@@ -44,9 +44,16 @@ body{
 
 .info-box h5{
     font-size: clamp(8px, 1.5vw, 12px);
-    color: #4b4949;
+    color: #a19e9e;
     margin: 0 0 8px 0;
     letter-spacing: 0.5px;
+}
+
+.next-box-weight-value{
+    font-size: clamp(8px, 1.5vw, 13px);
+    color: #4b4949;
+    font-weight: bold;
+    margin: 0;
 }
 
 #seesaw-container{

@@ -15,9 +15,7 @@ export function getRandomWeight() {
     return Math.floor(Math.random() * 10) + 1;
 }
 
-export function createWeightObject(plank, clickX, distanceFromCenter) {
-    const boxWeight = getRandomWeight();
-
+export function createWeightObject(plank, clickX, boxWeight) {
     const box = document.createElement("div");
 
     box.classList.add("weight-box")
