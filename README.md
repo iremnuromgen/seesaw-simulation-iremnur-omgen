@@ -19,6 +19,50 @@ style="color:#ffffff; font-size:25px; font-family: 'Poppins', sans-serif;">
 <hr style="width:100%; border:1px solid #ffffff; opacity:0.4;">
 
 <h4 style="color:#ffffff; font-size:20px; font-family: 'Poppins', sans-serif;">
+🧩 Thought Process & Design Decisions
+</h4>
+
+<p style="color:#ffffff; font-size:16px;">
+    The main goal of this project was to create an interactive interface where users can intuitively observe torque balance on a seesaw. I focused on replicating a simple real-world seesaw system in a clear and visually understandable digital format.
+</p>
+
+<p style="color:#ffffff; font-size:16px;">
+    My thought process included the following principles:
+</p>
+
+<ul style="color:#ffffff; font-size:16px;">
+  <li><b>Used a simplified physics model:</b> <br>
+  I used the basic torque formula (torque = weight × distance) to keep the user experience smooth and avoid unnecessary complexity. I kept the tilt angle directly proportional to the net torque for simplicity.</li>
+  <li><b>Implemented a modular architecture:</b> <br>
+ I separated the JavaScript files into physicsManager, objectManager, and storageManager to improve code readability.</li>
+</ul>
+
+<br>
+
+<h4 style="color:#ffffff; font-size:20px; font-family: 'Poppins', sans-serif;">
+🔍 Trade-offs & Limitations
+</h4>
+
+<ul style="color:#ffffff; font-size:16px;">
+  <li><b>Pixel-based distance measurement:</b> <br>
+  Distances are calculated in pixels rather than physical units, so accuracy depends on the visual scale.</li>
+  <li><b>Simplified drop physics:</b> <br/>
+  Boxes fall according to the click angle instead of dropping straight down. Since the fall path depends on where the user clicks on the seesaw, the object trajectory can look slightly unrealistic compared to real vertical free fall.</li>
+</ul>
+
+<br>
+
+<h4 style="color:#ffffff; font-size:20px; font-family: 'Poppins', sans-serif;">
+AI Assistance
+</h4>
+
+<ul style="color:#ffffff; font-size:16px;">
+  <li>I used AI assistance to refine the clarity, flow, and organization of the README text.</li>
+  <li>I also used it to make minor syntax corrections and ensure clean, consistent JavaScript code.</li>
+  <li>Additionally, AI helped me identify and fix small bugs during the development process.</li>
+</ul>
+
+<h4 style="color:#ffffff; font-size:20px; font-family: 'Poppins', sans-serif;">
 🎬 Demo
 </h4>
 
