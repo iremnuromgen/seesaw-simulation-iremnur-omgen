@@ -27,3 +27,13 @@ export function calculateNetTorque() {
 export function getTotalWeights() {
     return { leftTotalWeight, rightTotalWeight };
 }
+
+export function getBoxData() {
+    return boxData;
+}
+
+export function setSeesawState(loadedData) {
+    boxData = loadedData.boxData || [];
+    leftTotalWeight = loadedData.leftTotalWeight || 0;
+    rightTotalWeight = loadedData.rightTotalWeight || 0;
+}

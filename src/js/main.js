@@ -8,8 +8,16 @@ import {
 import {
     updateTotalWeights,
     getTotalWeights,
-    calculateNetTorque
+    calculateNetTorque,
+    getBoxData,
+    setSeesawState
 } from "./physicsManager.js";
+
+import {
+    saveSeesawState,
+    loadSeesawState,
+    clearSeesawState
+} from "./storageManager.js";
 
 const seesawPlank =  document.getElementById('seesaw-plank');
 const nextBoxWeightValue = document.querySelector('.next-box-weight-value')
@@ -18,6 +26,7 @@ const rightTotalWeightValue = document.querySelector('.right-total-weight-value'
 const tiltAngleValue = document.querySelector('.tilt-angle-value');
 
 let nextBoxWeight = getRandomWeight();
+let eventLogs = [];
 nextBoxWeightValue.textContent = `${nextBoxWeight} kg`;
 
 function addLogEntry(entry) {
@@ -28,6 +37,8 @@ function addLogEntry(entry) {
     logEntry.textContent = entry;
 
     eventLogContainer.prepend(logEntry);
+
+    eventLogs.unshift(entry);
 }
 
 seesawPlank.addEventListener("mouseenter", (event) => {
@@ -80,5 +91,52 @@ seesawPlank.addEventListener('click', (event) => {
         nextBoxWeightValue.textContent = `${nextBoxWeight} kg`;
 
         createWeightObject(seesawPlank, clickX, nextBoxWeight, true);
+
+        saveSeesawState(
+            getBoxData(),
+            leftTotalWeight,
+            rightTotalWeight,
+            tiltAngle,
+            eventLogs
+        );
     }
+});
+
+window.addEventListener("DOMContentLoaded", () => {
+    const savedState = loadSeesawState();
+    if(savedState)
+    {
+        setSeesawState(savedState);
+
+        const plankRect = seesawPlank.getBoundingClientRect();
+        const centerX = plankRect.width / 2;
+
+        savedState.boxData.forEach(box => {
+            const clickX = centerX + box.distance;
+            createWeightObject(seesawPlank, clickX, box.weight, false);
+        });
+
+        leftTotalWeightValue.textContent = `${savedState.leftTotalWeight.toFixed(1)} kg`;
+        rightTotalWeightValue.textContent = `${savedState.rightTotalWeight.toFixed(1)} kg`;
+        tiltAngleValue.textContent = `${savedState.tiltAngle.toFixed(1)}°`;
+        seesawPlank.style.transform = `translateX(-50%) rotate(${savedState.tiltAngle}deg)`;
+
+        if(savedState.eventLogs && savedState.eventLogs.length > 0)
+        {
+            const eventLogContainer = document.getElementById("event-log-container");
+            eventLogs = savedState.eventLogs;
+            savedState.eventLogs.forEach(entry => {
+                const logDiv = document.createElement("div");
+                logDiv.classList.add("log-entry");
+                logDiv.textContent = entry;
+                eventLogContainer.appendChild(logDiv);
+            });
+        }
+    }
+});
+
+const resetButton = document.getElementById("reset-button");
+resetButton.addEventListener("click", () => {
+    clearSeesawState();
+    location.reload();
 });
