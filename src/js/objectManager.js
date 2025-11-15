@@ -26,6 +26,7 @@ export function createWeightObject(plank, clickX, boxWeight, isPreview = false) 
     {
         box.classList.add("falling");
     }
+    
     const boxSize = 20 + boxWeight * 4;
     const left = clickX - boxSize / 2;
 
