@@ -64,41 +64,43 @@ seesawPlank.addEventListener('click', (event) => {
     if(clickX >= 0 && clickX <= plankRect.width) {
         createWeightObject(seesawPlank, clickX, nextBoxWeight, false);
 
-        updateTotalWeights(nextBoxWeight, distanceFromCenter);
+        setTimeout(() => {
+            updateTotalWeights(nextBoxWeight, distanceFromCenter);
 
-        const { leftTotalWeight, rightTotalWeight } = getTotalWeights();
-        leftTotalWeightValue.textContent = `${leftTotalWeight.toFixed(1)} kg`;
-        rightTotalWeightValue.textContent = `${rightTotalWeight.toFixed(1)} kg`;
+            const { leftTotalWeight, rightTotalWeight } = getTotalWeights();
+            leftTotalWeightValue.textContent = `${leftTotalWeight.toFixed(1)} kg`;
+            rightTotalWeightValue.textContent = `${rightTotalWeight.toFixed(1)} kg`;
 
-        const netTorque = calculateNetTorque();
+            const netTorque = calculateNetTorque();
 
-        let tiltAngle = netTorque / 100;
-        tiltAngle = Math.max(Math.min(tiltAngle, 30), -30);
+            let tiltAngle = netTorque / 100;
+            tiltAngle = Math.max(Math.min(tiltAngle, 30), -30);
 
-        seesawPlank.style.transform = `translateX(-50%) rotate(${tiltAngle}deg)`;
+            seesawPlank.style.transform = `translateX(-50%) rotate(${tiltAngle}deg)`;
 
-        tiltAngleValue.textContent = `${tiltAngle.toFixed(1)}°`
+            tiltAngleValue.textContent = `${tiltAngle.toFixed(1)}°`
 
-        const side = distanceFromCenter < 0 ? "left" : "right";
-        const absDistance = Math.abs(distanceFromCenter).toFixed(1);
-        const angleImpact = (nextBoxWeight * distanceFromCenter / 100).toFixed(1);
+            const side = distanceFromCenter < 0 ? "left" : "right";
+            const absDistance = Math.abs(distanceFromCenter).toFixed(1);
+            const angleImpact = (nextBoxWeight * distanceFromCenter / 100).toFixed(1);
 
-        const entry = `A ${nextBoxWeight} kg box was placed ${absDistance}px to the ${side} of the center, affecting the seesaw tilt by ${angleImpact}°.`;
+            const entry = `A ${nextBoxWeight} kg box was placed ${absDistance}px to the ${side} of the center, affecting the seesaw tilt by ${angleImpact}°.`;
 
-        addLogEntry(entry);
-        
-        nextBoxWeight = getRandomWeight();
-        nextBoxWeightValue.textContent = `${nextBoxWeight} kg`;
+            addLogEntry(entry);
+            
+            nextBoxWeight = getRandomWeight();
+            nextBoxWeightValue.textContent = `${nextBoxWeight} kg`;
 
-        createWeightObject(seesawPlank, clickX, nextBoxWeight, true);
+            createWeightObject(seesawPlank, clickX, nextBoxWeight, true);
 
-        saveSeesawState(
-            getBoxData(),
-            leftTotalWeight,
-            rightTotalWeight,
-            tiltAngle,
-            eventLogs
-        );
+            saveSeesawState(
+                getBoxData(),
+                leftTotalWeight,
+                rightTotalWeight,
+                tiltAngle,
+                eventLogs
+            );
+        }, 600);
     }
 });
 

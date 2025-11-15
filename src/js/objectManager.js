@@ -21,6 +21,11 @@ export function createWeightObject(plank, clickX, boxWeight, isPreview = false) 
     if(isPreview && previewBox) previewBox.remove();
 
     const box = document.createElement("div");
+
+    if(!isPreview)
+    {
+        box.classList.add("falling");
+    }
     const boxSize = 20 + boxWeight * 4;
     const left = clickX - boxSize / 2;
 
