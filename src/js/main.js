@@ -9,6 +9,8 @@ import {
     updateTotalWeights,
     getTotalWeights,
     calculateNetTorque,
+    calculateLeftTorque,
+    calculateRightTorque,
     getBoxData,
     setSeesawState
 } from "./physicsManager.js";
@@ -24,6 +26,29 @@ const nextBoxWeightValue = document.querySelector('.next-box-weight-value')
 const leftTotalWeightValue = document.querySelector('.left-total-weight-value');
 const rightTotalWeightValue = document.querySelector('.right-total-weight-value');
 const tiltAngleValue = document.querySelector('.tilt-angle-value');
+
+const leftTotalTorque = document.querySelector('.left-total-torque-value');
+const rightTotalTorque = document.querySelector('.right-total-torque-value');
+
+function getWeightForBalance(distance) {
+    const leftTotalTorque = calculateLeftTorque();
+    const rightTotalTorque = calculateRightTorque();
+
+    const torqueGap = Math.abs(leftTotalTorque + rightTotalTorque);
+
+    if(torqueGap === 0) return 1;
+
+    const needDistance = Math.abs(distance);
+
+    if(needDistance < 5) return 10;
+
+    let w = Math.ceil(torqueGap / needDistance);
+
+    if(w > 10) w = 10;
+    if(w < 1) w = 1;
+
+    return w;
+}
 
 let nextBoxWeight = getRandomWeight();
 let eventLogs = [];
@@ -72,13 +97,17 @@ seesawPlank.addEventListener('click', (event) => {
             rightTotalWeightValue.textContent = `${rightTotalWeight.toFixed(1)} kg`;
 
             const netTorque = calculateNetTorque();
+            const netLeftTorque = calculateLeftTorque();
+            const netRightTorque = calculateRightTorque();
 
             let tiltAngle = netTorque / 100;
             tiltAngle = Math.max(Math.min(tiltAngle, 30), -30);
 
             seesawPlank.style.transform = `translateX(-50%) rotate(${tiltAngle}deg)`;
 
-            tiltAngleValue.textContent = `${tiltAngle.toFixed(1)}°`
+            tiltAngleValue.textContent = `${tiltAngle.toFixed(1)}°`;
+            leftTotalTorque.textContent = `${netLeftTorque.toFixed(1)}°`;
+            rightTotalTorque.textContent = `${netRightTorque.toFixed(1)}°`;
 
             const side = distanceFromCenter < 0 ? "left" : "right";
             const absDistance = Math.abs(distanceFromCenter).toFixed(1);
@@ -88,9 +117,9 @@ seesawPlank.addEventListener('click', (event) => {
 
             addLogEntry(entry);
             
-            nextBoxWeight = getRandomWeight();
+            nextBoxWeight = getWeightForBalance(Math.abs(distanceFromCenter));
             nextBoxWeightValue.textContent = `${nextBoxWeight} kg`;
-
+            
             createWeightObject(seesawPlank, clickX, nextBoxWeight, true);
 
             saveSeesawState(
